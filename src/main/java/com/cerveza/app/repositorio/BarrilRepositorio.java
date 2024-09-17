@@ -1,12 +1,12 @@
 package com.cerveza.app.repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.cerveza.app.entidad.Barril;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-@Repository
-public interface BarrilRepositorio extends JpaRepository<Barril, Long>{
-
+public interface BarrilRepositorio extends JpaRepository<Barril, Long> {
+    List<Barril> findByEstado(String estado);
+    Page<Barril> findByEstado(String estado, Pageable pageable);
 }
- 

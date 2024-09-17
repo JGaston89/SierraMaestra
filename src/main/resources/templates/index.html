@@ -1,95 +1,101 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Mi Página</title>
 </head>
 <body>
-	<!DOCTYPE html>
-	<html lang="es">
-	<head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>Dashboard de Administración</title>
-	    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
-		<script src="https://cdn.tailwindcss.com"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-	    <style>
-	        /* Aplicar el fondo a todo el cuerpo de la página */
-	        body {
-	            /*background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcPk1wOl1fffAidYDJhRno_sTpfkhwcPLb0g&s');*/
-	            background-size: cover;
-	            background-position: center;
-	            background-attachment: fixed;
-	        }
-	    </style>
-	</head>
-	
-	<div class="flex">
-	        <!-- Vertical Navbar -->
-	        <aside class="flex h-screen w-20 flex-col items-center bg-gray-800 text-white">
-	            <div class="my-6">
-	                <i id="menu-button" class="fas fa-bars text-3xl cursor-pointer"></i>
-	            </div>
-	            <!-- Dropdown Menu -->
-	            <nav id="dropdown-menu" class="dropdown mt-10 flex flex-col space-y-8">
-					<a href="/" class="flex items-center justify-center rounded-full p-2 hover:bg-gray-700">
-						<i class="fa-solid fa-house text-2xl"></i>
-					</a>
-		                <a href="/barril" class="flex items-center justify-center rounded-full p-2 hover:bg-gray-700">
-		                    <i class="fas fa-beer-mug-empty text-2xl"></i>
-		                </a>
-	                <!-- Puedes agregar más íconos aquí si lo deseas -->
-	            </nav>
-	        </aside>
-	
-	
-	<body class="bg-gray-100 bg-opacity-75">
-	    <div class="container mx-auto p-6 max-w-full">
-	        <div class="bg-white p-6 rounded-lg shadow-md max-w-full overflow-x-auto">
-	            <h1 class="text-2xl font-bold mb-4">Listado de Barriles</h1>
-	            <div class="flex flex-col sm:flex-row justify-between mb-4">
-	                <a th:href="@{/barril/nuevo}"><button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mb-2 sm:mb-0">Añadir Barril</a></button>
-	                <!--<input type="text" placeholder="Buscar..." class="p-2 border rounded-lg flex-grow sm:ml-4">-->
-	            </div>
-	            <table class="w-full bg-white rounded-lg shadow-md">
-	                <thead>
-	                    <tr class="bg-gray-200 text-left text-xs sm:text-base">
-	                        <th class="p-4">ID</th>
-	                        <th class="p-4">litros</th>
-	                        <th class="p-4">estado</th>
-	                        <th class="p-4">notas</th>
-	                        <!--<th class="p-4">Fecha de carga</th>
-	                        <th class="p-4">Fecha de vencimiento</th>
-	                        <th class="p-4">Estado</th>
-	                        <th class="p-4">Notas</th>-->
-	                        <th class="p-4">Acciones</th>
-	                    </tr>
-	                </thead>
-	                <tbody>
-	                    <!-- Ejemplo de fila -->
-	                    <tr th:each="barril : ${barril}" class="border-b text-sm sm:text-base">
-	                        <td th:text="${barril.id}" class="p-4">1</td>
-	                        <td th:text="${barril.litros}" class="p-4">123</td>
-	                        <td th:text="${barril.estado}" class="p-4">456456</td>
-	                        <td th:text="${barril.notas}" class="p-4">Cerveza</td>
-	                        <!--<td th:text="${barril.id}" class="p-4">Fecha de carga</td>
-	                        <td th:text="${barril.id}" class="p-4">Fecha de vencimiento</td>
-	                        <td th:text="${barril.id}" class="p-4">Estado</td>
-	                        <td th:text="${barril.id}" class="p-4">Notas</td>-->
-	                        <td class="p-4 flex flex-col sm:flex-row space-y-2 sm:space-x-2">
-								<a th:href="@{/barril/showBarril/{id}(id=${barril.id})}"><button class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">Show</a></button>
-	                            <a th:href="@{/barril/editarBarril/{id}(id=${barril.id})}"><button class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600">Editar</a></button>
-	                            <a th:href="@{/barril/{id}(id=${barril.id})}"class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">Eliminar</a>
-	                        </td>
-	                    </tr>
-	                    <!-- Fin del ejemplo de fila -->
-	                    <!-- Agrega más filas según sea necesario -->
-	                </tbody>
-	            </table>
-	        </div>
-	    </div>
-	</body>
-	</html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard de Administración</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <style>
+            body {
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+        </style>
+    </head>
+    
+    <div class="flex">
+        <aside class="flex h-screen w-20 flex-col items-center bg-gray-800 text-white">
+            <div class="my-6">
+                <i id="menu-button" class="fas fa-bars text-3xl cursor-pointer"></i>
+            </div>
+
+            <nav id="dropdown-menu" class="dropdown mt-10 flex flex-col space-y-8">
+                <a href="/" class="flex items-center justify-center rounded-full p-2 hover:bg-gray-700">
+                    <i class="fa-solid fa-house text-2xl"></i>
+                </a>
+                <a href="/barril" class="flex items-center justify-center rounded-full p-2 hover:bg-gray-700">
+                    <i class="fas fa-beer-mug-empty text-2xl"></i>
+                </a>
+            </nav>
+        </aside>
+
+        <body class="bg-gray-100 bg-opacity-75">
+            <div class="container mx-auto p-6 max-w-full">
+                <div class="bg-white p-6 rounded-lg shadow-md max-w-full overflow-x-auto">
+                    <form action="/barril" method="get" id="filter-form">
+                        <div>
+                            <h2>Filtrar por :</h2>
+                            <select name="estado" onchange="document.getElementById('filter-form').submit();">
+                                <option value="">Todos los estados</option>
+                                <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}">Estado</option>
+                            </select>
+                        </div>
+                    </form>
+                    <h1 class="text-2xl font-bold mb-4">Listado de Barriles</h1>
+                    <div class="flex flex-col sm:flex-row justify-between mb-4">
+                        <a th:href="@{/barril/nuevo}"><button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mb-2 sm:mb-0">Añadir Barril</button></a>
+                    </div>
+                    <table class="w-full bg-white rounded-lg shadow-md">
+                        <thead>
+                            <tr class="bg-gray-200 text-left text-xs sm:text-base">
+                                <th class="p-4">ID</th>
+                                <th class="p-4">Litros</th>
+                                <th class="p-4">Estado</th>
+                                <th class="p-4">Notas</th>
+                                <th class="p-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="barril : ${barrilesPage.content}" class="border-b text-sm sm:text-base">
+                                <td th:text="${barril.id}" class="p-4">1</td>
+                                <td th:text="${barril.litros}" class="p-4">123</td>
+                                <td th:text="${barril.estado}" class="p-4">456456</td>
+                                <td th:text="${barril.notas}" class="p-4">Cerveza</td>
+                                <td class="p-4 flex flex-col sm:flex-row space-y-2 sm:space-x-2">
+                                    <a th:href="@{/barril/showBarril/{id}(id=${barril.id})}"><button class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">Show</button></a>
+                                    <a th:href="@{/barril/editarBarril/{id}(id=${barril.id})}"><button class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600">Editar</button></a>
+                                    <a th:href="@{/barril/{id}(id=${barril.id})}" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">Eliminar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4">
+                        <div th:if="${barrilesPage.hasPrevious()}">
+                            <a th:href="@{/barril(page=${barrilesPage.number - 1}, estado=${param.estado})}">
+                                <button class="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400">Anterior</button>
+                            </a>
+                        </div>
+                        <div th:if="${barrilesPage.hasNext()}">
+                            <a th:href="@{/barril(page=${barrilesPage.number + 1}, estado=${param.estado})}">
+                                <button class="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400">Siguiente</button>
+                            </a>
+                        </div>
+                        <div class="mt-2">
+                            Página <span th:text="${barrilesPage.number + 1}">1</span> de <span th:text="${barrilesPage.totalPages}">1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </div>
 </body>
 </html>
