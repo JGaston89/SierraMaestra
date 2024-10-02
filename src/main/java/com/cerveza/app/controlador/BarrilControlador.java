@@ -1,6 +1,9 @@
 package com.cerveza.app.controlador;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +24,7 @@ import org.springframework.data.domain.Sort;
 public class BarrilControlador {
 
     @Autowired
+    @Qualifier("barrilServicioImlp")  // Usar el bean específico con el nombre de la implementación
     private BarrileServicio servicio;
 
     @GetMapping("/barril")
@@ -43,8 +47,6 @@ public class BarrilControlador {
         modelo.addAttribute("estados", new String[]{"Cargado", "Alquilado", "Devuelto", "Limpio", "Inactivo"});
         return "index";
     }
-
-
 
     @GetMapping("/barril/nuevo")
     public String crearBarrilFormulario(Model modelo) {
@@ -88,5 +90,12 @@ public class BarrilControlador {
     public String obtenerBarrilPorId(@PathVariable Long id, Model modelo) {
         modelo.addAttribute("barril", servicio.obtenerBarrilPorId(id));
         return "show_barril";
+    }
+
+    @GetMapping("/barril/limpios")
+    public String listarBarrilesLimpios(Model modelo) {
+        List<Barril> barrilesLimpios = servicio.listarBarrilesPorEstadoLimpio();
+        modelo.addAttribute("barrilesLimpios", barrilesLimpios);
+        return "crear_lote";  // o la vista correspondiente
     }
 }

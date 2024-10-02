@@ -12,7 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-@Service
+
+
+@Service("barrilServicioImlp") 
 public class BarrilServicioImlp implements BarrileServicio {
 
     @Autowired
@@ -56,5 +58,13 @@ public class BarrilServicioImlp implements BarrileServicio {
     @Override
     public Page<Barril> listarBarrilesPorEstado(String estado, Pageable pageable) {
         return repositorio.findByEstado(estado, pageable);
+    }
+    
+    @Autowired
+    private BarrilRepositorio barrilRepositorio;	
+    
+    @Override
+    public List<Barril> listarBarrilesPorEstadoLimpio() {
+        return barrilRepositorio.findByEstado("Limpio");
     }
 }

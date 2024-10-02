@@ -23,4 +23,6 @@ public interface BarrileServicio {
     Page<Barril> listarTodosLosBarriles(Pageable pageable);
     
     Page<Barril> listarBarrilesPorEstado(String estado, Pageable pageable);
+    
+    List<Barril> listarBarrilesPorEstadoLimpio();
 }
