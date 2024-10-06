@@ -9,6 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @Controller
 @RequestMapping
 public class LoteControlador {
@@ -20,19 +25,22 @@ public class LoteControlador {
     private BarrileServicio barrileServicio;
 
     @GetMapping("/lote")
-    public String listarTodosLosLotes(Model modelo) {
-        List<Lote> lotes = servicio.listarTodosLosLotes();
-        modelo.addAttribute("lotes", lotes);
+    public String listarTodosLosLotes(@RequestParam(defaultValue = "0") int page, Model modelo) {
+        Pageable pageable = PageRequest.of(page, 10); // 10 elementos por página
+        Page<Lote> lotesPage = servicio.listarTodosLosLotes(pageable);
+        modelo.addAttribute("lotes", lotesPage.getContent());
+        modelo.addAttribute("currentPage", page);
+        modelo.addAttribute("totalPages", lotesPage.getTotalPages());
         modelo.addAttribute("estados", new String[]{"Activo", "Inactivo"});
         return "tabla_lote";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/lote/{id}")
     public String obtenerLotePorId(@PathVariable("id") Long id, Model modelo) {
         Lote lote = servicio.obtenerLotePorId(id);
         if (lote != null) {
             modelo.addAttribute("lote", lote);
-            return "detalle_lote";
+            return "show_lote"; // Asegúrate de que este sea el nombre correcto de tu plantilla
         } else {
             return "404";
         }
@@ -47,9 +55,7 @@ public class LoteControlador {
     @GetMapping("/lote/nuevo")
     public String crearLoteFormulario(Model modelo) {
         Lote lote = new Lote();
-        List<Barril> barrilesLimpios = barrileServicio.listarBarrilesPorEstadoLimpio();
         modelo.addAttribute("lote", lote);
-        modelo.addAttribute("barrilesLimpios", barrilesLimpios);
         modelo.addAttribute("estados", new String[]{"Activo", "Inactivo"});
         return "crear_lote";
     }
@@ -59,5 +65,21 @@ public class LoteControlador {
         servicio.eliminarLote(id);
         return "redirect:/lote";
     }
+
+    @GetMapping("/lote/editarLote/{id}")
+    public String editarLote(@PathVariable("id") Long id, Model modelo) {
+        Lote lote = servicio.obtenerLotePorId(id);
+        modelo.addAttribute("lote", lote);
+        modelo.addAttribute("estados", new String[]{"Activo", "Inactivo"}); // Añade los estados que necesites
+        return "editar_lote"; // Asegúrate de que esta es la vista correcta
+    }
+
+    @PostMapping("/lote/editarLote/{id}")
+    public String actualizarLote(@PathVariable("id") Long id, @ModelAttribute("lote") Lote lote) {
+        lote.setId(id); // Asegúrate de establecer el ID correcto
+        servicio.actualizarLote(lote);
+        return "redirect:/lote"; // Redirige a la lista de lotes después de la actualización
+    }
+
 }
 

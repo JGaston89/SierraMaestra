@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @Service("loteServicioImp")
 public class LoteServicioImp implements LoteServicio {
 
@@ -37,9 +40,15 @@ public class LoteServicioImp implements LoteServicio {
         loteRepositorio.deleteById(id);
     }
 
-	@Override
-	public Lote actualizarLote(Lote lote) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Lote actualizarLote(Lote lote) {
+        return loteRepositorio.save(lote);
+    }
+    
+    @Override
+    public Page<Lote> listarTodosLosLotes(Pageable pageable) {
+        return loteRepositorio.findAll(pageable);
+    }
+	
+	
 }

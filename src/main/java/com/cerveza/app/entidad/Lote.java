@@ -1,9 +1,8 @@
 package com.cerveza.app.entidad;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "lote")
@@ -35,24 +34,25 @@ public class Lote {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaVencimiento;
 
-    // Relación OneToMany con Barril
-    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Barril> barriles;
+    @Column(name = "fecha_carga_madurador", nullable = false)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fechaCargaMadurador;
 
     // Constructores
-    public Lote() {
-    }
+    public Lote() {}
 
-    public Lote(String cerveza, Integer cantidadLitros, String estado, String notas, Date fechaCarga, Date fechaVencimiento) {
+    public Lote(String cerveza, Integer cantidadLitros, String estado, String notas, Date fechaCarga, Date fechaVencimiento, Date fechaCargaMadurador) {
         this.cerveza = cerveza;
         this.cantidadLitros = cantidadLitros;
         this.estado = estado;
         this.notas = notas;
         this.fechaCarga = fechaCarga;
         this.fechaVencimiento = fechaVencimiento;
+        this.fechaCargaMadurador = fechaCargaMadurador;
     }
 
-    // Getters y setters
+    // Getters y Setters correctos
     public Long getId() {
         return id;
     }
@@ -109,12 +109,11 @@ public class Lote {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public List<Barril> getBarriles() {
-        return barriles;
+    public Date getFechaCargaMadurador() {
+        return fechaCargaMadurador;
     }
 
-    public void setBarriles(List<Barril> barriles) {
-        this.barriles = barriles;
+    public void setFechaCargaMadurador(Date fechaCargaMadurador) {
+        this.fechaCargaMadurador = fechaCargaMadurador;
     }
 }
-
