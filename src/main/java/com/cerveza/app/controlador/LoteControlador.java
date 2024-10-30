@@ -56,7 +56,7 @@ public class LoteControlador {
     public String crearLoteFormulario(Model modelo) {
         Lote lote = new Lote();
         modelo.addAttribute("lote", lote);
-        modelo.addAttribute("estados", new String[]{"Activo", "Inactivo"});
+        modelo.addAttribute("estados", new String[]{"Activo"});
         return "crear_lote";
     }
 
@@ -79,6 +79,20 @@ public class LoteControlador {
         lote.setId(id); // Asegúrate de establecer el ID correcto
         servicio.actualizarLote(lote);
         return "redirect:/lote"; // Redirige a la lista de lotes después de la actualización
+    }
+    
+    @GetMapping("/lote/buscar")
+    public String buscarLotePorId(@RequestParam("id") Long id, Model modelo) {
+        Lote lote = servicio.obtenerLotePorId(id);
+        if (lote != null) {
+            modelo.addAttribute("lotes", List.of(lote)); // Muestra solo el lote encontrado en la tabla
+        } else {
+            modelo.addAttribute("lotes", List.of()); // Si no existe, muestra la tabla vacía
+            modelo.addAttribute("mensajeError", "Lote no encontrado con el ID proporcionado.");
+        }
+        modelo.addAttribute("currentPage", 0); // Valores por defecto
+        modelo.addAttribute("totalPages", 1); // Valores por defecto
+        return "tabla_lote";
     }
 
 }
