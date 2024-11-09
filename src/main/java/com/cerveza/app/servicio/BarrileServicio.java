@@ -25,4 +25,6 @@ public interface BarrileServicio {
     Page<Barril> listarBarrilesPorEstado(String estado, Pageable pageable);
     
     List<Barril> listarBarrilesPorEstadoLimpio();
+    
+    List<Barril> listarBarrilesPorLote(Long loteId);
 }

@@ -2,7 +2,10 @@ package com.cerveza.app.entidad;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "lote")
@@ -38,6 +41,11 @@ public class Lote {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaCargaMadurador;
+    
+    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Barril> barriles = new ArrayList<>();
+
+
 
     // Constructores
     public Lote() {}

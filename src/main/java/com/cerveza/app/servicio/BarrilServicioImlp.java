@@ -67,4 +67,17 @@ public class BarrilServicioImlp implements BarrileServicio {
     public List<Barril> listarBarrilesPorEstadoLimpio() {
         return barrilRepositorio.findByEstado("Limpio");
     }
+    
+    public List<Barril> obtenerBarrilesLimpios() {
+        return barrilRepositorio.findAll()
+                .stream()
+                .filter(barril -> "LIMPIO".equalsIgnoreCase(barril.getEstado()))
+                .toList();
+    }
+    
+    @Override
+    public List<Barril> listarBarrilesPorLote(Long loteId) {
+        return repositorio.findByLoteId(loteId);
+    }
+
 }
